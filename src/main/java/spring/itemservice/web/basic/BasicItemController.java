@@ -75,7 +75,7 @@ public class BasicItemController {
      * 생략시 model에 저장되는 name은 클래스명 첫글자만 소문자로 등록 Item -> item
      */
 //    @PostMapping("/add")
-    public String addItemV3(@ModelAttribute Item item, Model model){
+    public String addItemV3(@ModelAttribute Item item){
         //클래스명의 카멜케이스가 Model attribute의 키로 등록된다.
         itemRepository.save(item);
         return "basic/item";
@@ -85,11 +85,18 @@ public class BasicItemController {
      * @ModelAttribute 자체 생략 가능
      * model.addAttribute(item) 자동 추가
      */
-    @PostMapping("/add")
-    public String addItemV4(Item item, Model model){
+//    @PostMapping("/add")
+    public String addItemV4(Item item){
         itemRepository.save(item);
         return "basic/item";
     }
+
+    @PostMapping("/add")
+    public String addItemV5(Item item){
+        itemRepository.save(item);
+        return "redirect:/basic/items/"+item.getId();
+    }
+
 
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model){
